@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,7 +32,7 @@ class Project
     /**
      * @ORM\Column(type="boolean")
      */
-    private $active;
+    private $active = true;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="projects")
@@ -63,10 +65,15 @@ class Project
      */
     private $location;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Media::class, cascade={"persist", "remove"})
+     */
+    private $image;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('NOW');
-        $this->active = true;
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,4 +188,17 @@ class Project
 
         return $this;
     }
+
+    public function getImage(): ?Media
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Media $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 }

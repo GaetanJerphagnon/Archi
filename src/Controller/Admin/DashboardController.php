@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use App\Entity\Media;
 use App\Entity\Project;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -31,6 +32,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoDashboard('Tableau de bord', 'fa fa-home');
         yield MenuItem::linkToCrud('Projets', 'fa fa-pencil-ruler', Project::class);
         yield MenuItem::linkToCrud('Catégories', 'fa fa-list-ol', Category::class);
+        yield MenuItem::linkToCrud('Images', 'fa fa-photo', Media::class);
         yield MenuItem::section('Mediathèque WIP');
 
     }

@@ -27,7 +27,7 @@ class Category
     /**
      * @ORM\Column(type="boolean")
      */
-    private $active;
+    private $active = true;
 
     /**
      * @ORM\OneToMany(targetEntity=Project::class, mappedBy="category")
@@ -47,7 +47,6 @@ class Category
     public function __construct()
     {
         $this->createdAt = new \DateTime('NOW');
-        $this->active = true;
         $this->projects = new ArrayCollection();
     }
 
