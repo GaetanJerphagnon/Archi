@@ -13,6 +13,8 @@
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary">Soumettre</button>
     {{ form_end(form) }}
-</div>
+
+    <form action="{{ oneup_uploader_endpoint('gallery') }}" class="dropzone" style="width:200px; height:200px; border:4px dashed black">
+</form>
 {% endblock %}
 

@@ -8,6 +8,8 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
 import 'bootswatch/dist/solar/bootstrap.min.css'
+import '../vendor/enyo/dropzone/dist/min/dropzone.min.css'
+import '../vendor/enyo/dropzone/dist/min/dropzone.min.js'
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
