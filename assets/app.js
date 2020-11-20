@@ -7,7 +7,7 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
-import 'bootswatch/dist/solar/bootstrap.min.css'
+import '../vendor/thomaspark/bootswatch/dist/solar/bootstrap.min.css'
 import '../vendor/enyo/dropzone/dist/min/dropzone.min.css'
 import '../vendor/enyo/dropzone/dist/min/dropzone.min.js'
 

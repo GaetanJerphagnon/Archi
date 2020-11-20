@@ -13,7 +13,5 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {
-        "bootswatch": "^4.5.3"
-    }
+    "dependencies": {}
 }

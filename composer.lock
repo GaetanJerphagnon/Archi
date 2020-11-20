@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5382a60d0ea45c2038f7dfc3f09d9897",
+    "content-hash": "ed472e50ef63a1f56fc8e3197efb7965",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -7711,6 +7711,51 @@
                 }
             ],
             "time": "2020-10-24T12:03:25+00:00"
+        },
+        {
+            "name": "thomaspark/bootswatch",
+            "version": "v4.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thomaspark/bootswatch.git",
+                "reference": "ea3997347564d23b282937ddf019f44a7482af03"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/ea3997347564d23b282937ddf019f44a7482af03",
+                "reference": "ea3997347564d23b282937ddf019f44a7482af03",
+                "shasum": ""
+            },
+            "suggest": {
+                "robloach/component-installer": "Allows installation of Components via Composer"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "name": "bootswatch",
+                    "files": [
+                        "README.md",
+                        "LICENSE",
+                        "dist/**/*"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thomaspark",
+                    "email": "thomas@bootswatch.com"
+                }
+            ],
+            "description": "Themes for Bootstrap",
+            "support": {
+                "issues": "https://github.com/thomaspark/bootswatch/issues",
+                "source": "https://github.com/thomaspark/bootswatch/tree/v4.5.3"
+            },
+            "time": "2020-10-21T15:15:00+00:00"
         },
         {
             "name": "twig/extra-bundle",
