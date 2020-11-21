@@ -4,6 +4,12 @@ YARN         	= $(EXEC_PHP) yarn
 SYMFONY         = $(EXEC_PHP) php bin/console
 COMPOSER        = $(EXEC_PHP) composer
 
+# takes the .env ariables
+ifneq ("$(wildcard .env)","")
+    include .env
+    export $(shell sed 's/=.*//' .env)
+endif
+
 # "make" command displays now the list of commands with description
 .DEFAULT_GOAL := help
 help:
@@ -15,7 +21,6 @@ help:
 ##
 ## Project
 ## -----
-	
 install: ## Installs and starts your project
  install: .env-symfony
 	  $(DOCKER_COMPOSE) up -d --remove-orphans
@@ -97,19 +102,3 @@ yarn-build-watch:
 clear: ## Clears cache
 clear: .env vendor
 	$(SYMFONY) cache:clear --env=dev
-
-##
-## Tests
-## -----
-
-test: ## Runs unit and functional tests
-test: tu tf
-
-tu: ## Runs unit tests
-tu: vendor
-	$(EXEC_PHP) ./vendor/bin/phpunit tests --exclude-group functional
-
-tf: ## Runs functional tests
-tf: vendor
-	$(EXEC_PHP) ./vendor/bin/phpunit tests --group functional
-
