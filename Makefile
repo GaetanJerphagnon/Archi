@@ -1,33 +1,8 @@
-#You should just run $ make install
-
 DOCKER_COMPOSE  = docker-compose
 EXEC_PHP        = $(DOCKER_COMPOSE) exec php
 YARN         	= $(EXEC_PHP) yarn
 SYMFONY         = $(EXEC_PHP) php bin/console
 COMPOSER        = $(EXEC_PHP) composer
-
-# define standard colors
-BLACK        := $(shell tput -Txterm setaf 0)
-RED          := $(shell tput -Txterm setaf 1)
-GREEN        := $(shell tput -Txterm setaf 2)
-YELLOW       := $(shell tput -Txterm setaf 3)
-LIGHTPURPLE  := $(shell tput -Txterm setaf 4)
-PURPLE       := $(shell tput -Txterm setaf 5)
-BLUE         := $(shell tput -Txterm setaf 6)
-WHITE        := $(shell tput -Txterm setaf 7)
-
-RESET := $(shell tput -Txterm sgr0)
-
-colors:
-	@echo "${BLACK}BLACK${RESET}"
-	@echo "${RED}RED${RESET}"
-	@echo "${GREEN}GREEN${RESET}"
-	@echo "${YELLOW}YELLOW${RESET}"
-	@echo "${LIGHTPURPLE}LIGHTPURPLE${RESET}"
-	@echo "${PURPLE}PURPLE${RESET}"
-	@echo "${BLUE}BLUE${RESET}"
-	@echo "${WHITE}WHITE${RESET}"
-
 
 # "make" command displays now the list of commands with description
 .DEFAULT_GOAL := help
@@ -42,7 +17,7 @@ help:
 ## -----
 	
 install: ## Installs and starts your project
-install: .env-symfony
+ install: .env-symfony
 	  $(DOCKER_COMPOSE) up -d --remove-orphans
 	  $(COMPOSER) install
 	  $(YARN) add encore
@@ -52,6 +27,13 @@ install: .env-symfony
 	  $(SYMFONY) d:d:c
 	  $(SYMFONY) d:m:m --no-interaction
 	  $(SYMFONY) d:f:l --no-interaction
+	  @echo '';\
+	  echo '   \033[0;44m                                                         \033[0m';\
+	  echo '   \033[0;44m   Your symfony project has been installed successfuly.  \033[0m';\
+	  echo '   \033[0;44m   Try \033[1;32mhttp://localhost:8000\033[0m\033[0;44m now!.                       \033[0m';\
+	  echo '   \033[3;44m                                                         \033[0m';\
+	  echo '';\
+
 
 kill:
 	$(DOCKER_COMPOSE) kill
