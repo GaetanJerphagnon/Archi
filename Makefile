@@ -25,6 +25,7 @@ project-install: ## Install your project
 install: .env-symfony
 	  $(DOCKER_COMPOSE) up -d --remove-orphans
 	  $(COMPOSER) install
+	  $(YARN) add encore
 	  $(YARN) install
 	  $(YARN) encore dev
 	  $(SYMFONY) d:d:d --if-exists --force
