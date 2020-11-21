@@ -6,22 +6,42 @@ YARN         	= $(EXEC_PHP) yarn
 SYMFONY         = $(EXEC_PHP) php bin/console
 COMPOSER        = $(EXEC_PHP) composer
 
-ifneq ("$(wildcard .env)","")
-    include .env
-    export $(shell sed 's/=.*//' .env)
-endif
+# define standard colors
+BLACK        := $(shell tput -Txterm setaf 0)
+RED          := $(shell tput -Txterm setaf 1)
+GREEN        := $(shell tput -Txterm setaf 2)
+YELLOW       := $(shell tput -Txterm setaf 3)
+LIGHTPURPLE  := $(shell tput -Txterm setaf 4)
+PURPLE       := $(shell tput -Txterm setaf 5)
+BLUE         := $(shell tput -Txterm setaf 6)
+WHITE        := $(shell tput -Txterm setaf 7)
+
+RESET := $(shell tput -Txterm sgr0)
+
+colors:
+	@echo "${BLACK}BLACK${RESET}"
+	@echo "${RED}RED${RESET}"
+	@echo "${GREEN}GREEN${RESET}"
+	@echo "${YELLOW}YELLOW${RESET}"
+	@echo "${LIGHTPURPLE}LIGHTPURPLE${RESET}"
+	@echo "${PURPLE}PURPLE${RESET}"
+	@echo "${BLUE}BLUE${RESET}"
+	@echo "${WHITE}WHITE${RESET}"
 
 
 # "make" command displays now the list of commands with description
 .DEFAULT_GOAL := help
 help:
-	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' ./Makefile | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
+	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' ./Makefile | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[34m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[34m##/[33m/'
+	@echo ''
+	@echo '\033[02mIf you just cloned this repository, you should run\033[0m'"\033[01m\033[34m make install \033[0m\n"''
+
 .PHONY: help
 ##
 ## Project
 ## -----
 	
-project-install: ## Install your project
+install: ## Installs and starts your project
 install: .env-symfony
 	  $(DOCKER_COMPOSE) up -d --remove-orphans
 	  $(COMPOSER) install
@@ -33,6 +53,17 @@ install: .env-symfony
 	  $(SYMFONY) d:m:m --no-interaction
 	  $(SYMFONY) d:f:l --no-interaction
 
+kill:
+	$(DOCKER_COMPOSE) kill
+	$(DOCKER_COMPOSE) down --volumes --remove-orphans
+
+clean: ## Stops the project and removes generated files
+clean: kill
+	sudo rm -rf .env.local vendor node_modules var/cache/* var/log/* public/build/*
+
+reset: ## Stops and starts a fresh install of the project
+reset: kill install
+
 .env-symfony:
 	@if [ -f .env.local ]; \
 	then\
@@ -40,19 +71,36 @@ install: .env-symfony
 	else\
 		echo '\033[0;33m Your symfony .env.local does not exist.\033[0m';\
 		touch .env.local;\
-		echo "DATABASE_URL=mysql://root:@db_docker_symfony:3306/db_architecte?serverVersion=5.7" > .env.local;\
+		echo 'DATABASE_URL=mysql://root:@db_docker_symfony:3306/db_architecte?serverVersion=5.7' > .env.local;\
 		echo '\033[0;32m Your symfony .env.local copy from .env has been created\033[0m';\
 	fi
 ##
 ## Database
 ## -----
 
-db-validate-schema: ## (d:s:v) Validate the doctrine ORM mapping
-db-validate-schema: .env vendor
+d-d-c: ## Creates the database from your .env.local
+d-d-c: .env vendor
+	$(SYMFONY) doctrine:database:create
+
+d-d-drop: ## Drops your database
+d-d-drop: .env vendor
+	$(SYMFONY) doctrine:database:create
+
+d-f-l: ## Loads all your fixtures
+d-f-l: .env vendor
+	$(SYMFONY) doctrine:fixtures:load
+
+d-m-m: ## Migrates your schema
+d-m-m: .env vendor
+	$(SYMFONY) doctrine:migrations:migrate
+
+d-s-v: ## Validates the doctrine ORM mapping
+d-s-v: .env vendor
 	$(SYMFONY) doctrine:schema:validate
+
 	
 ##
-## Assets
+## Utils
 ## -----	
 
 yarn-build:## Runs yarn to build you assets in /public/build
@@ -62,4 +110,24 @@ yarn-build:
 yarn-build-watch:## Runs yarn to watch your assets
 yarn-build-watch:
 	$(YARN) encore dev --watch
+
+
+clear: ## Clears cache
+clear: .env vendor
+	$(SYMFONY) cache:clear --env=dev
+
+##
+## Tests
+## -----
+
+test: ## Runs unit and functional tests
+test: tu tf
+
+tu: ## Runs unit tests
+tu: vendor
+	$(EXEC_PHP) ./vendor/bin/phpunit tests --exclude-group functional
+
+tf: ## Runs functional tests
+tf: vendor
+	$(EXEC_PHP) ./vendor/bin/phpunit tests --group functional
 
