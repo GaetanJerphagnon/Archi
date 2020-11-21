@@ -13,5 +13,7 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {}
+    "dependencies": {
+        "encore": "^0.0.30-beta"
+    }
 }
