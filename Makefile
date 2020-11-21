@@ -17,7 +17,7 @@ help:
 	@echo ''
 	@echo '\033[02mIf you just cloned this repository, you should run\033[0m'"\033[01m\033[34m make install \033[0m\n"''
 
-.PHONY: help
+.PHONY: help install kill clean reset .env-symfony d-d-c d-d-drop d-m-m d-f-l d-s-v yarn-build yarn-build-watch c-c
 ##
 ## Project
 ## -----
@@ -99,6 +99,6 @@ yarn-build-watch:
 	$(YARN) encore dev --watch
 
 
-clear: ## Clears cache
-clear: .env vendor
+c-c: ## Clears cache
+c-c: .env vendor
 	$(SYMFONY) cache:clear --env=dev
