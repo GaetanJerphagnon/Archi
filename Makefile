@@ -33,10 +33,10 @@ install: ## Installs and starts your project
 	  $(SYMFONY) d:m:m --no-interaction
 	  $(SYMFONY) d:f:l --no-interaction
 	  @echo '';\
-	  echo '   \033[0;44m                                                           \033[0m';\
-	  echo '   \033[0;44m   Your Symfony 5 project has been installed successfuly.  \033[0m';\
-	  echo '   \033[0;44m   Try \033[1;32mhttp://localhost:8000\033[0m\033[0;44m now!.                         \033[0m';\
-	  echo '   \033[3;44m                                                           \033[0m';\
+	  echo '   \033[0;44m                                                            \033[0m';\
+	  echo '   \033[0;44m   Your Symfony 5 project has been installed successfuly.   \033[0m';\
+	  echo '   \033[0;44m   Try \033[1;32mhttp://localhost:8000\033[0m\033[0;44m now!                           \033[0m';\
+	  echo '   \033[3;44m                                                            \033[0m';\
 	  echo '';\
 
 
