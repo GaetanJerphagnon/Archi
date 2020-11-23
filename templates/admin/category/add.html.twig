@@ -1,0 +1,9 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Ajout d'une catégorie{% endblock %}
+
+{% block body %}
+
+{% include "admin/category/_form.html.twig" with {"action" : "Ajouter"} %}
+
+{% endblock %}

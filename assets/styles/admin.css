@@ -1,0 +1,72 @@
+body {
+    background-color: #d0e5de;
+    letter-spacing: 0px;
+    color: black;
+}
+
+.content {
+    background-color: white;
+}
+
+.btn-add {
+    background-color: #3579bf;
+    color: white;
+}
+
+.btn-add:hover {
+    background-color: #24578a;
+    color: white;
+}
+
+thead {
+    background-color: #76c7aa;
+}
+
+tbody tr:nth-child(even){
+    background-color: #d3f0e0;
+}
+
+.table td ,.table th {
+    color: black;
+    padding: 10px;
+    vertical-align: middle;
+} 
+
+.card, .btn, .form-control { border-radius: 0; }
+
+.navcolor * {
+    color: #f49803;
+    border-radius: 0;
+}
+
+.navcolor a {
+    color:white;
+}
+
+.navcolor a i {
+    color:white;
+}
+
+.navcolor a:hover {
+    background-color: #747474;
+    
+}
+
+.activecolor {
+    background-color: #61a78f;
+    clip-path: 
+    polygon(
+      0 0,     /* top left */
+      0 0,     /* top left */
+      90% 0%,    /* top right */
+      100% 50%,   /* top right */
+      100% 50%,  /* bottom right */
+      90% 100%,  /* bottom right */
+      0 100%,   /* bottom left */
+      0 100%      /* bottom left */
+    );
+}
+
+.activecolor:hover {
+    background-color: #747474;
+}

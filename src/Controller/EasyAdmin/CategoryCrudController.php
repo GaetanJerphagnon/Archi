@@ -1,26 +1,22 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\EasyAdmin;
 
-use App\Entity\Project;
+use App\Entity\Category;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class ProjectCrudController extends AbstractCrudController
+class CategoryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Project::class;
+        return Category::class;
     }
 
     public function configureActions(Actions $actions): Actions 
@@ -34,17 +30,10 @@ class ProjectCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->onlyOnIndex(),
-            TextField::new('title', 'Titre'),
-            TextField::new('client', 'Client'),
-            DateTimeField::new('year', 'Date'),
-            AssociationField::new('category', 'Catégorie'),
-            TextEditorField::new('description', 'Description')->hideOnIndex(),
-            BooleanField::new('active', 'Actif'),
-            // FormField::addPanel('Images'),
-            // ImageField::new('image')->hideOnIndex(),
+            TextField::new('name'),
+            BooleanField::new('active'),
             DateTimeField::new('createdAt')->onlyOnDetail(),
             DateTimeField::new('updatedAt')->onlyOnDetail(),
-
         ];
     }
 }

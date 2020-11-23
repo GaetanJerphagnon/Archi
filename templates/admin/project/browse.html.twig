@@ -1,0 +1,67 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Vos Projets{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="container-fluid d-flex flex-row">
+        <a class="btn btn-primary mt-2 mb-2" href="{{ path('admin_project_add') }}">
+            <i class="fa fa-plus"></i> Ajouter un projet
+        </a>
+        <div class="row mt-2 mb-2 ml-5 pl-5">
+                    {# display every flash message available #}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class=" m-0  pl-5 pr-5 alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Client</th>
+        <th scope="col">Date du projet</th>
+        <th scope="col">Catégorie</th>
+        <th scope="col">Actif</th>
+        {% if is_granted("ROLE_ADMIN") %}
+            <th scope="col">Actions</th>
+        {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects %}
+            <tr>
+            <th scope="row">{{ project.id }}</th>
+            <td>{{ project.title }}</td>
+            <td>{{ project.client }}</td>
+            <td>{{ project.year|date('d-M-Y') }}</td>
+            <td>{{  project.category.name  }}</td>
+            <td>{% if project.active %}
+                    <span class="badge badge-pill badge-success">En ligne</span>
+                {% else %}
+                    <span class="badge badge-danger">Désactivé</span>
+                {% endif %}</td>
+            {% if is_granted("ROLE_ADMIN") %}
+                <td>
+                    <a class="btn btn-info p-2" href="{{ path('admin_project_edit', {id: project.id}) }}">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <form action="{{ path('admin_project_delete', {id: project.id}) }}" method="post" class="d-inline">
+                        <button class="btn btn-danger p-2">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <input type="hidden" name="_method" value="DELETE">
+                    </form>
+                </td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}

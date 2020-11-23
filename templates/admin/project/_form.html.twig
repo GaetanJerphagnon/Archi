@@ -1,0 +1,29 @@
+<div class="container mt-4 mb-4">
+    <h2>{{ action }} un projet</h2>
+</div>
+<div class="container mb-4">
+    {{ form_start(form) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+        </div>
+
+        <div class="row ">
+            <div class="col-6">
+                {{ form_label(form.title) }}{{ form_widget(form.title) }}
+            </div>
+            <div class="col-3">
+                {{ form_label(form.year) }}{{ form_widget(form.year) }}
+            </div>
+            <div class="col-3">
+                {{ form_label(form.category) }}{{ form_widget(form.category) }}
+            </div>
+        </div>
+
+        <div class="row m-4">
+            {{ form_label(form.description) }}{{ form_widget(form.description) }}
+        </div>
+
+        <button type="submit" class="btn btn-success">{{ action }}</button>
+    {{ form_end(form) }}
+
+</div>

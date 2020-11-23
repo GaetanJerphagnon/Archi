@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Votre Backoffice{% endblock %}</title>
+        {% block stylesheets %}
+        {{ encore_entry_link_tags('admin') }}
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        {% endblock %}
+    </head>
+    <body>
+        {% set route = app.request.get('_route') %}
+        <div class="example-wrapper p-0 pt-4 pl-4"><h1>Votre Backoffice</h1></div>
+        <div class="example-wrapper p-4 d-flex flex-row">
+            <div class="col pr-0 pl-0 bg-dark p-0 ">
+                <div class="nav flex-column navcolor" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link col-xs{% if route == "admin" %} active activecolor{% endif %}" id="v-pills-home-tab"  href="{{ path('admin') }}" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-tachometer-alt"></i> Home</a>
+                <a class="nav-link {% if 'admin_project' in route %} active activecolor {% endif %}" href="{{ path('admin_project_browse') }}" aria-selected="false"><i class="fa fa-ruler"></i> Projets</a>
+                <a class="nav-link {% if 'admin_category' in route %} active activecolor {% endif %}" href="{{ path('admin_category_browse') }}"  aria-controls="v-pills-messages" aria-selected="false"><i class="fa fa-list"></i> Catégories</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" role="tab" aria-controls="v-pills-settings" aria-selected="false"><i class="fa fa-image"></i> Médiathèque</a>
+                </div>
+            </div>
+            <div class="col-10 pl-4 ml-0 content">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        {% block javascripts %}
+        <script type="text/javascript" src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,13 @@
+<div class="container mt-4 mb-4">
+    <h2>{{ action }} une catégorie</h2>
+</div>
+<div class="container mb-4">
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.active) }}
+        
+        {{ form_errors(form) }}
+        <button type="submit" class="btn btn-success">{{ action }}</button>
+    {{ form_end(form) }}
+
+</div>
