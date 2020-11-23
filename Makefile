@@ -28,6 +28,8 @@ install: ## Installs and starts your project
 	  $(YARN) add encore
 	  $(YARN) install
 	  $(YARN) encore dev
+	  $(SYMFONY) ckeditor:install
+	  $(SYMFONY) assets:install public
 	  $(SYMFONY) d:d:d --if-exists --force
 	  $(SYMFONY) d:d:c
 	  $(SYMFONY) d:m:m --no-interaction
