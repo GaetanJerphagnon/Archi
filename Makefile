@@ -23,7 +23,7 @@ help:
 ## -----
 install: ## Installs and starts your project
  install: .env-symfony
-	  $(DOCKER_COMPOSE) up -d --remove-orphans
+	  sudo $(DOCKER_COMPOSE) up -d --remove-orphans
 	  $(COMPOSER) install
 	  $(YARN) add encore
 	  $(YARN) install
