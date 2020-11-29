@@ -34,26 +34,33 @@ class ProjectCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
+
+        $fields = [
             IdField::new('id')->onlyOnIndex(),
             TextField::new('title', 'Titre'),
             TextField::new('client', 'Client'),
             DateTimeField::new('year', 'Date'),
             AssociationField::new('category', 'Catégorie'),
             TextEditorField::new('description', 'Description')->hideOnIndex(),
-            BooleanField::new('active', 'Actif'),
-            
-            // FormField::addPanel('Images'),
-            // CollectionField::new('media')
-            //     ->onlyOnDetail()
-            //     ->setTemplatePath("medias.html.twig"),
-            CollectionField::new('media')
-                ->setEntryType(MediaType::class)
-                ->setFormTypeOption('by_reference', false)
-                ->onlyOnForms(),
+            BooleanField::new('active', 'Actif'),    
             DateTimeField::new('createdAt')->onlyOnDetail(),
             DateTimeField::new('updatedAt')->onlyOnDetail(),
 
+            FormField::addPanel('Photos'),
         ];
+
+        if($pageName == "detail") {
+            $fields[]= CollectionField::new('media', '')
+                        ->onlyOnDetail()
+                        ->setTemplatePath("medias.html.twig");
+
+        } elseif($pageName == "edit") {
+            $fields[]= CollectionField::new('media', 'Photos')
+                        ->setEntryType(MediaType::class)
+                        ->onlyOnForms();
+
+        }
+
+        return $fields;
     }
 }
