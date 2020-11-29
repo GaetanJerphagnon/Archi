@@ -70,10 +70,14 @@ class Project
      */
     private $image;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="project", cascade={"persist"})
+     */
+    private $media;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('NOW');
-        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,6 +201,36 @@ class Project
     public function setImage(?Media $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function addMedium(Media $medium): self
+    {
+        if (!$this->media->contains($medium)) {
+            $this->media[] = $medium;
+            $medium->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedium(Media $medium): self
+    {
+        if ($this->media->removeElement($medium)) {
+            // set the owning side to null (unless already changed)
+            if ($medium->getProject() === $this) {
+                $medium->setProject(null);
+            }
+        }
 
         return $this;
     }

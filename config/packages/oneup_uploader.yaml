@@ -3,4 +3,4 @@ oneup_uploader:
         gallery:
             frontend: dropzone # or any uploader you use in the frontend
             storage:
-                directory: "%kernel.project_dir%/public/uploads/images"
+                directory: "%kernel.project_dir%/public/images/uploads"

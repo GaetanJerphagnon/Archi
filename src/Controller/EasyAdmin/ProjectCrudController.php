@@ -3,12 +3,14 @@
 namespace App\Controller\EasyAdmin;
 
 use App\Entity\Project;
+use App\Form\MediaType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -40,8 +42,15 @@ class ProjectCrudController extends AbstractCrudController
             AssociationField::new('category', 'Catégorie'),
             TextEditorField::new('description', 'Description')->hideOnIndex(),
             BooleanField::new('active', 'Actif'),
+            
             // FormField::addPanel('Images'),
-            // ImageField::new('image')->hideOnIndex(),
+            // CollectionField::new('media')
+            //     ->onlyOnDetail()
+            //     ->setTemplatePath("medias.html.twig"),
+            CollectionField::new('media')
+                ->setEntryType(MediaType::class)
+                ->setFormTypeOption('by_reference', false)
+                ->onlyOnForms(),
             DateTimeField::new('createdAt')->onlyOnDetail(),
             DateTimeField::new('updatedAt')->onlyOnDetail(),
 

@@ -8,15 +8,15 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class MediaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('path', FileType::class, array(
+        ->add('imageFile', VichFileType::class, array(
             'label' 	=> 'Image',
-            'required' 	=> true,
             'constraints' => array(
                 new Image([
                     'maxSize' => '5M'

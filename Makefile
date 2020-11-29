@@ -1,4 +1,4 @@
-DOCKER_COMPOSE  = docker-compose
+DOCKER_COMPOSE  = sudo docker-compose
 EXEC_PHP        = $(DOCKER_COMPOSE) exec php
 YARN         	= $(EXEC_PHP) yarn
 SYMFONY         = $(EXEC_PHP) php bin/console
@@ -23,7 +23,7 @@ help:
 ## -----
 install: ## Installs and starts your project
  install: .env-symfony
-	  sudo $(DOCKER_COMPOSE) up -d --remove-orphans
+	  $(DOCKER_COMPOSE) up -d --remove-orphans
 	  $(COMPOSER) install
 	  $(YARN) add encore
 	  $(YARN) install
