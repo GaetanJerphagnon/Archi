@@ -26,7 +26,7 @@ class Media
     private $path;
 
     /**
-     * @ORM\Column(type="string", length=200)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     private $image;
 
@@ -56,6 +56,11 @@ class Media
         $this->createdAt = new \DateTime('NOW');
     }
 
+    public function __toString()
+    {
+        return $this->image;   
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,7 +83,7 @@ class Media
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image): self
     {
         $this->image = $image;
 

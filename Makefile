@@ -87,6 +87,9 @@ d-s-v: ## Validates the doctrine ORM mapping
 d-s-v: .env vendor
 	$(SYMFONY) doctrine:schema:validate
 
+make-mig: ## Makes new migration
+make-mig: .env vendor
+	$(SYMFONY) make:migration
 	
 ##
 ## Utils

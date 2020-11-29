@@ -59,6 +59,13 @@ class ProjectCrudController extends AbstractCrudController
                         ->setEntryType(MediaType::class)
                         ->onlyOnForms();
 
+        } elseif($pageName == "index") {
+            $fields[]= CollectionField::new('media', 'Photos')
+                        ->setEntryType(MediaType::class)
+                        ->onlyOnIndex()
+                        ->setTemplatePath("medias.html.twig");
+                        
+
         }
 
         return $fields;

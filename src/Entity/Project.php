@@ -80,6 +80,11 @@ class Project
         $this->createdAt = new \DateTime('NOW');
     }
 
+    public function __toString()
+    {
+        return $this->title;   
+    }
+
     public function getId(): ?int
     {
         return $this->id;
